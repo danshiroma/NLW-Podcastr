@@ -8,6 +8,7 @@ import { convertDurationToTimeString } from '../../utils/convertDurationToTimeSt
 
 import styles from './episode.module.scss'
 import Image from 'next/image';
+import { PlayerContext, usePlayer } from '../../contexts/PlayerContext';
 
 type Episode = {
     id: string;
@@ -26,7 +27,9 @@ type EpisodeProps = {
 }
 
 export default function Episode( { episode }: EpisodeProps) {
-    
+    const { play } = usePlayer()
+
+
     return (
         <div className={styles.episode}>
             <div className={styles.thumbnailContainer}>
@@ -36,7 +39,7 @@ export default function Episode( { episode }: EpisodeProps) {
                     </button>
                 </Link>
                 <Image  width={700} height={160} src={episode.thumbnail} objectFit="cover"/>
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                     <img src="/play.svg" alt="Tocar episódio"/>
                 </button>
             </div>
